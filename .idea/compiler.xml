@@ -8,7 +8,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="testmodel" />
         <module name="modelcore" />
-        <module name="archmodel" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
