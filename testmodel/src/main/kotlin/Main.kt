@@ -1,6 +1,6 @@
-import org.model.Person
-import org.model.View
-import org.model.System
+import ao.mobile.market.MarketModel
+import org.model.views.Systems
+import org.model.views.views
 
 fun main(args: Array<String>) {
     println("Hello World!")
@@ -8,12 +8,29 @@ fun main(args: Array<String>) {
     // Try adding program arguments at Run/Debug configuration
     println("Program arguments: ${args.joinToString()}")
 
-    val myModel = org.model.test.myModel()
+    val mm = MarketModel()
+    mm.validate() // валидация модели на целостность
+
+    Systems(mm) //если не переопределяеть имя файла, то оно генерируется автоматически
+        .ContainmentAsLink(true)
+
+    views.buildAll() //тут запускается генерация всех продекларированных выше представлений
+/*
+    val myModel = mysysmodel()
+
+    //представления могут декларироваться как в этой функции, так и непосредственно в конструкторах классов и объектов
+    Views.System
+        .Usecases(myModel.useCases())
+        .filename("all usecases") //можно переопределить имя файлв
+
 
     View().apply{
         title("Context diagram")
+
+
         elements(myModel.items().filter {
             (it is System) or (it is Person)
         })
     }.render_puml("context.puml")
+*/
 }
