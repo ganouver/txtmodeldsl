@@ -19,7 +19,7 @@ open class Item protected constructor (
 open class ContainerItem protected constructor (parent : ContainerItem?, ID: String, Label: String, Description: String)
     : Item(parent, ID, Label,  Description) {
 
-    companion object root : ContainerItem(null, "root", "", "")
+    companion object root : Package(null, "root", "", "")
     {}
 
     private val _children: MutableMap<String, Item> = HashMap()
@@ -45,5 +45,10 @@ open class ContainerItem protected constructor (parent : ContainerItem?, ID: Str
         _children[s.ID] = s
         return s
     }
+}
+
+open class Package(parent : Package?, ID: String, Label: String = "", Description: String = "")
+    : ContainerItem(parent, ID, Label, Description)
+{
 }
 
