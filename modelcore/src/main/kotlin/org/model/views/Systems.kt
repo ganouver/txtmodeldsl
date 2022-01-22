@@ -5,7 +5,7 @@ import java.io.File
 import java.nio.file.Path
 import kotlin.io.path.name
 
-class Systems(val mm: Model) : BaseView(Path.of(mm.ID, "systems").name) {
+class Systems(val mm: Model) : BaseView(Path.of(mm.Label, "systems").name) {
 
     var RenderContainmentAsLink = false
 

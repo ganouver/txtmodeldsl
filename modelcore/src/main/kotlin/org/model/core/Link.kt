@@ -1,11 +1,5 @@
 package org.model.core
 
-import org.model.core.Item
-import org.model.sm.Need
-import org.model.sm.Role
-import org.model.sm.System
-import org.model.sm.Usecase
-
 class Link (val from : Item,
             val to : Item,
             val label : String = "",
@@ -14,12 +8,16 @@ class Link (val from : Item,
 
 enum class LinkStereotypes {
     default,
-    use,   // role uses systems
+    usage,   // role uses systems
     needs, // role has needs
     access,// system accesses systems
     depends,
-    inheritance, // Item inherited from Item
-    participate  // Role participates in usecase scenario
+    // Item inherited from Item, renders as --|>
+    inheritance,
+    // from usecase to participant roles, renders as --
+    participant,
+    //реализует  --> : <<realize>>
+    realize
 }
 
 enum class lineTypes {
