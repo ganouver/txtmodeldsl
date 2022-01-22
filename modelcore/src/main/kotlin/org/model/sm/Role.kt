@@ -33,6 +33,11 @@ class Usecase(Label: String, Description: String = "") : Item(Label, Description
     fun participant(p: Role, label : String = "") {
         this.linkTo(p, label, LinkStereotypes.participant)
     }
+
+    fun invoke(usecase: Usecase) {
+        linkTo(usecase, "<<invoke>>", LinkStereotypes.depends)
+    }
+
 }
 
 
