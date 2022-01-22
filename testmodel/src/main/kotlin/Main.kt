@@ -1,4 +1,4 @@
-import ao.mobile.market.MarketModel
+import ao.mobile.market.MarketContextModel
 import org.model.views.Systems
 import org.model.views.views
 
@@ -8,7 +8,7 @@ fun main(args: Array<String>) {
     // Try adding program arguments at Run/Debug configuration
     println("Program arguments: ${args.joinToString()}")
 
-    val mm = MarketModel()
+    val mm = MarketContextModel()
     mm.validate() // валидация модели на целостность
 
     Systems(mm) //если не переопределяеть имя файла, то оно генерируется автоматически
