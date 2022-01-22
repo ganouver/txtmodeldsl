@@ -1,12 +1,14 @@
 package org.model.sm
 
-import org.model.core.ContainerItem
 import org.model.core.Item
+import org.model.core.LinkStereotypes
 
-open class Role (parent: ContainerItem, ID: String, Label: String, Description: String) :
-    Item(parent, ID, Label, Description) {}
+open class Role(Label: String, Description: String) : Item(Label, Description) {
+    fun inherits(role: Role): Role {
+        super.linkTo(role, "включает", LinkStereotypes.inheritance)
+        return this
+    }
 
+}
 
-class Need (parent: ContainerItem, ID: String, Label: String, Description: String) :
-Item(parent, ID, Label, Description) {}
 

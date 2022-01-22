@@ -3,22 +3,20 @@ package ao.mobile.market
 
 import org.model.*
 import org.model.core.*
+import org.model.sm.Container
+import org.model.sm.Role
 import org.model.sm.System
 
-class MobileAppSystem(parent : Model, ID : String) : System(parent, ID, "Мобильное приложение", false,"" ) {
-   val mapp = container("app","Mobile application","iOS/Android"   )
-
+class MobileAppSystem(parent : Model, ID : String) : System("Мобильное приложение")
+   val mapp = Container("Mobile application", Technology = "iOS/Android")
 }
 
-class MarketModel : Model("marketplace", "Маркетплейс") {
+class MarketModel : Model("Маркетплейс", "") {
 
-    val worker = role("worker", "Работник УК")
-    val resident = role("Resident", "Житель ")
-    val customer = role("Customer", "Покупатель/потребитель услуг")
-
+    val customer = Role( "Покупатель/потребитель услуг")
 
     //systems
-    val bitrix = systemExt("bitrix", "Bitrix24")
+    val bitrix = System("bitrix24", extern = true)
     val mapps = MobileAppSystem(this, "mapp_system")
 
     init {
@@ -44,3 +42,13 @@ class MarketModel : Model("marketplace", "Маркетплейс") {
 
 }
 
+class SmartBuilding : Model("Умное здание", "") {
+    object Services {
+        val market = MarketModel()
+    }
+
+    val worker = Role("Работник УК")
+    val resident = Role( "Житель ")
+        .inherits(Services.market.customer)
+
+}

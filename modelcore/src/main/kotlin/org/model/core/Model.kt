@@ -1,6 +1,6 @@
 package org.model.core
 
-open class Model(ID : String, label : String) : Package(root, ID, label, "")
+open class Model(label : String, Description: String) : Package(label, Description)
 {
     fun validate() {
         assert(true)
