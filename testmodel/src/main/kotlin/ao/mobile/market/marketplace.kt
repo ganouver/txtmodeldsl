@@ -79,7 +79,7 @@ class MarketModel : Model("Маркетплейс", "") {
 
     override fun buildViews(): List<View> {
         return listOf(
-                UsecaseView("cases", this.childrenOf<Usecase>())
+                UsecaseView("market_cases", "Маркетплейс", this.childrenOf<Usecase>())
             );
     }
 }
