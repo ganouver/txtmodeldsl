@@ -1,5 +1,4 @@
-import ao.mobile.market.MarketContextModel
-import org.model.views.Systems
+import ao.mobile.market.MarketModel
 import org.model.views.views
 
 fun main(args: Array<String>) {
@@ -8,13 +7,9 @@ fun main(args: Array<String>) {
     // Try adding program arguments at Run/Debug configuration
     println("Program arguments: ${args.joinToString()}")
 
-    val mm = MarketContextModel()
+    val mm = MarketModel()
     mm.validate() // валидация модели на целостность
-
-    Systems(mm) //если не переопределяеть имя файла, то оно генерируется автоматически
-        .ContainmentAsLink(true)
-
-    views.buildAll() //тут запускается генерация всех продекларированных выше представлений
+    views.buildAllView(mm) //тут запускается генерация всех продекларированных выше представлений
 /*
     val myModel = mysysmodel()
 

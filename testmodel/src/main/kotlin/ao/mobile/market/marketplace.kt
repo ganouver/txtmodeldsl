@@ -3,12 +3,14 @@ package ao.mobile.market
 
 import org.model.core.*
 import org.model.sm.*
+import org.model.views.UsecaseView
+import org.model.views.View
 
 class MobileAppSystem : System("Мобильное приложение") {
    val mapp = Container("Mobile application", Technology = "iOS/Android")
 }
 
-class MarketContextModel : Model("Маркетплейс", "") {
+class MarketModel : Model("Маркетплейс", "") {
 
     //systems
     val bitrix = System("bitrix24", extern = true)
@@ -75,11 +77,16 @@ class MarketContextModel : Model("Маркетплейс", "") {
         mappsys.accessTo(bitrix, "Использует API маркетплейса")
     }
 
+    override fun buildViews(): List<View> {
+        return listOf(
+                UsecaseView("cases", this.childrenOf<Usecase>())
+            );
+    }
 }
 
 class SmartBuilding : Model("Умное здание", "") {
     object Services {
-        val market = MarketContextModel()
+        val market = MarketModel()
     }
 
     val worker = Role("Работник УК").apply {
@@ -88,5 +95,4 @@ class SmartBuilding : Model("Умное здание", "") {
     val resident = Role( "Житель ").apply {
         inherits(Services.market.customer)
     }
-
 }
