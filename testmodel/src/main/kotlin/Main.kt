@@ -1,3 +1,4 @@
+import ao.mobile.SmartbuildingStructure
 import ao.mobile.market.MarketModel
 import org.model.views.views
 
@@ -7,7 +8,8 @@ fun main(args: Array<String>) {
     // Try adding program arguments at Run/Debug configuration
     println("Program arguments: ${args.joinToString()}")
 
-    val mm = MarketModel()
+    val sb = SmartbuildingStructure()
+    val mm = MarketModel(sb)
     mm.validate() // валидация модели на целостность
     views.buildAllView(mm) //тут запускается генерация всех продекларированных выше представлений
 /*

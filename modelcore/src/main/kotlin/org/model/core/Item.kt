@@ -6,9 +6,9 @@ open class Item protected constructor (
     val Label : String,
     val Description : String) {
 
-
-    protected fun linkTo(target : Item, label : String, type: LinkStereotypes) {
-        Links.addLink(Link(this, target, label, type))
+    protected fun linkTo(target : Item, label : String, type: LinkStereotypes): Link {
+        return Link(this, target, label, type)
+            .also { Links.addLink(it)  }
     }
 
     //возвращает исходящие ссылки из элемента

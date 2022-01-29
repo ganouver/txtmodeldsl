@@ -1,20 +1,13 @@
 package ao.mobile.market
 
 
+import ao.mobile.SmartbuildingStructure
 import org.model.core.*
 import org.model.sm.*
 import org.model.views.UsecaseView
 import org.model.views.View
 
-class MobileAppSystem : System("Мобильное приложение") {
-   val mapp = Container("Mobile application", Technology = "iOS/Android")
-}
-
-class MarketModel : Model("Маркетплейс", "") {
-
-    //systems
-    val bitrix = System("bitrix24", extern = true)
-    val mappsys = MobileAppSystem()
+class MarketModel(val smartBuilding : SmartbuildingStructure) : Model("Маркетплейс", "") {
 
     //roles
     val customer = Role( "Покупатель/потребитель услуг")
@@ -31,8 +24,6 @@ class MarketModel : Model("Маркетплейс", "") {
     val supplier_need_inform = supplier.need("Донести до жителей информацию о доступных услугах/товарах",
                                          "чтобы жители могли воспользоваться услугами и оплатить их")
     var supplier_need_sale = supplier.need("Продать товар или услугу")
-
-
 
     val case_view_catalog = Usecase("Просмотр каталога товаров и услуг").apply {
         participant(customer)
@@ -72,9 +63,8 @@ class MarketModel : Model("Маркетплейс", "") {
     }
 
     init {
-        customer.use(mappsys, "Выбирает и заказывает товар")
-        marketAdmin.use(bitrix, "Настраивает каталог товаров")
-        mappsys.accessTo(bitrix, "Использует API маркетплейса")
+        customer.use(smartBuilding.mobileApp, "Выбирает и заказывает товар")
+        marketAdmin.use(smartBuilding.env.services, "Настраивает каталог товаров")
     }
 
     override fun buildViews(): List<View> {
@@ -84,15 +74,3 @@ class MarketModel : Model("Маркетплейс", "") {
     }
 }
 
-class SmartBuilding : Model("Умное здание", "") {
-    object Services {
-        val market = MarketModel()
-    }
-
-    val worker = Role("Работник УК").apply {
-        inherits(Services.market.marketAdmin)
-    }
-    val resident = Role( "Житель ").apply {
-        inherits(Services.market.customer)
-    }
-}
