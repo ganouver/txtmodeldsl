@@ -35,7 +35,9 @@ enum class LinkStereotypes {
     // from usecase to participant roles, renders as --
     participant,
     //реализует  --> : <<realize>>
-    realize
+    realize,
+    //содержит (отношение физической вложенности)
+    contains
 }
 
 enum class lineTypes {

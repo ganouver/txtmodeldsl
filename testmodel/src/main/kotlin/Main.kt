@@ -12,6 +12,8 @@ fun main(args: Array<String>) {
     val mm = MarketModel(sb)
     mm.validate() // валидация модели на целостность
     views.buildAllView(mm) //тут запускается генерация всех продекларированных выше представлений
+    views.buildAllView(sb) //тут запускается генерация всех продекларированных выше представлений
+
 /*
     val myModel = mysysmodel()
 

@@ -1,0 +1,22 @@
+@startuml
+title Структурная модель Smart Building 
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+SHOW_PERSON_PORTRAIT()
+
+System( node1,"Mobile Application" )
+System_Boundary(node2, "Системы в окружении Smart building"){
+System_Ext( node3,"Services" )
+System_Ext( node4,"Payments" )
+}
+System_Boundary(node5, "MBE.V2"){
+Component( node6,"Passes" )
+Component( node7,"Marketplace" )
+}
+
+node1 ==> node7  : обращается\n//[HTTP/REST]//\n| contract | BE.V2.mobile-market |
+node7 ==> node6  : receiveEvent\n//[eventBus]//\n| Event | ParkingCompleteEvent |
+node7 ==> node3  : Интеграция с поставщиком сервиса Маркетплейса\n//[HTTP/REST]//
+node3 ==> node4  : выставляет счета на оплату
+
+
+@enduml

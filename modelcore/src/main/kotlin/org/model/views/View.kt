@@ -14,7 +14,7 @@ abstract class PlantUmlView( name: String, val title: String) : View(name) {
     protected open fun renderHeader(header: PrintWriter)
     {
         with(header) {
-            write("title ${title.ifBlank { name }} - Usecase Diagram\n")
+            write("title ${title.ifBlank { name }} \n")
         }
     }
 
@@ -29,7 +29,7 @@ abstract class PlantUmlView( name: String, val title: String) : View(name) {
         if (!identities.containsKey(item)) {
             identities[item] = nextID(prefix)
         }
-        return identities[item]!!;
+        return identities[item]!!
     }
 
     private fun nextID(prefix: String): String {

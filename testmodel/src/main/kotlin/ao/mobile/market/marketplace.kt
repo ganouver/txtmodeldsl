@@ -4,6 +4,7 @@ package ao.mobile.market
 import ao.mobile.SmartbuildingStructure
 import org.model.core.*
 import org.model.sm.*
+import org.model.views.ServiceStructureView
 import org.model.views.UsecaseView
 import org.model.views.View
 
@@ -65,12 +66,21 @@ class MarketModel(val smartBuilding : SmartbuildingStructure) : Model("Марк�
     init {
         customer.use(smartBuilding.mobileApp, "Выбирает и заказывает товар")
         marketAdmin.use(smartBuilding.env.services, "Настраивает каталог товаров")
+        supplier.use(smartBuilding.env.services, "Взаимодействует с покупателями")
     }
 
     override fun buildViews(): List<View> {
         return listOf(
-                UsecaseView("market_cases", "Маркетплейс", this.childrenOf<Usecase>())
-            );
+                UsecaseView("market_cases", "Маркетплейс - сценарии использования",
+                    this.childrenOf<Usecase>()),
+                ServiceStructureView("market_structure", "Маркетплейс - структурная диаграмма",
+                    smartBuilding.mbe.svcMarket.linkedItems(1)
+                        .union(listOf(smartBuilding.env.payments, smartBuilding))
+                        .union(childrenOf<Role>())
+                        .distinct()
+                        .toList()
+                )
+            )
     }
 }
 

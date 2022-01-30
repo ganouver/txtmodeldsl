@@ -1,0 +1,28 @@
+@startuml
+title Маркетплейс - структурная диаграмма 
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+SHOW_PERSON_PORTRAIT()
+
+System_Ext( node1,"Services" )
+System_Ext( node2,"Payments" )
+System_Boundary(node3, "Структурная модель Smart Building"){
+System( node4,"Mobile Application" )
+System_Boundary(node5, "MBE.V2"){
+Component( node6,"Marketplace" )
+Component( node7,"Passes" )
+}
+}
+Person( node8,"Покупатель/потребитель услуг" )
+Person( node9,"Администратора маркетплейса" )
+Person( node10,"Поставщик услуг" )
+
+node4 ==> node6  : обращается\n//[HTTP/REST]//\n| contract | BE.V2.mobile-market |
+node6 ==> node7  : receiveEvent\n//[eventBus]//\n| Event | ParkingCompleteEvent |
+node6 ==> node1  : Интеграция с поставщиком сервиса Маркетплейса\n//[HTTP/REST]//
+node8 ==> node4  : Выбирает и заказывает товар
+node9 ==> node1  : Настраивает каталог товаров
+node10 ==> node1  : Взаимодействует с покупателями
+node1 ==> node2  : выставляет счета на оплату
+
+
+@enduml

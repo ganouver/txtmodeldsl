@@ -3,7 +3,8 @@ package org.model.sm
 import org.model.core.Item
 import org.model.core.LinkStereotypes
 
-open class Role(Label: String, Description: String = "") : Item(Label, Description) {
+open class Role(Label: String, Description: String = "", extern: Boolean= false)
+    : C4Item(Label, Description, extern) {
     fun inherits(role: Role) {
         super.linkTo(role, "включает", LinkStereotypes.inheritance)
     }

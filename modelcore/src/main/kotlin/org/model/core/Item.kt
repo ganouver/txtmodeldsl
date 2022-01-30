@@ -12,13 +12,30 @@ open class Item protected constructor (
     }
 
     //возвращает исходящие ссылки из элемента
-    public fun outgoingLinks() : List<Link> {
+    fun outgoingLinks() : List<Link> {
         return Links.linksFrom.safeGetListByKey(this)
     }
 
     //возвращает входящие ссылки
-    public fun incomingLinks() : List<Link> {
+    fun incomingLinks() : List<Link> {
         return Links.linksTo.safeGetListByKey(this)
+    }
+    fun contains(target: Item)
+    {
+        this.linkTo(target, "", LinkStereotypes.contains)
+    }
+
+    fun linkedItems(depth: Int) : List<Item> {
+
+        val me = listOf(this)
+        if (depth > 0) {
+            return me
+                .union(this.incomingLinks().flatMap { it.from.linkedItems(depth - 1) })
+                .union(this.outgoingLinks().flatMap { it.to.linkedItems(depth - 1) })
+                .distinct()
+                .toList()
+        }
+        return me
     }
 }
 
@@ -53,7 +70,7 @@ fun <K,V> MutableMap<K, MutableList<V>>.safeGetListByKey(key : K) : List<V> {
 
 open class Package(Label: String, Description: String) : Item(Label, Description) {
 
-    public final fun children() : List<Item> {
+    fun children() : List<Item> {
         val c = this.javaClass
         val itemType = Item::class.java
 
@@ -67,7 +84,7 @@ open class Package(Label: String, Description: String) : Item(Label, Description
         return vals.filterIsInstance<Item>()
     }
 
-    public inline fun<reified T> childrenOf() : List<T> {
+    inline fun<reified T> childrenOf() : List<T> {
         return  children().filterIsInstance<T>()
     }
 }
