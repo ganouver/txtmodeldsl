@@ -8,7 +8,7 @@ import org.model.views.ServiceStructureView
 import org.model.views.UsecaseView
 import org.model.views.View
 
-class MarketModel(val smartBuilding : SmartbuildingStructure) : Model("Маркетплейс", "") {
+class MarketUsageModel(val smartBuilding : SmartbuildingStructure) : Model("Маркетплейс", "") {
 
     //roles
     val customer = Role( "Покупатель/потребитель услуг")
@@ -19,7 +19,7 @@ class MarketModel(val smartBuilding : SmartbuildingStructure) : Model("Марк�
     val customer_need_chat = customer.need("обсудить детали заказа с поставщиком")
 
 
-    val marketAdmin = Role("Администратора маркетплейса")
+    val marketAdmin = Role("Администратор маркетплейса")
 
     val supplier = Role("Поставщик услуг")
     val supplier_need_inform = supplier.need("Донести до жителей информацию о доступных услугах/товарах",
