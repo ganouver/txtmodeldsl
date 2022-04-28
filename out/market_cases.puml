@@ -2,23 +2,23 @@
 left to right direction
 title Маркетплейс - сценарии использования 
 
-usecase usecase1 as "Чат с поставщиком по заказу"
+usecase usecase1 as "Создание заказа по содержимому корзины"
+
+actor actor1 as "Покупатель/потребитель услуг"
+
+usecase usecase2 as "Оплата сделанного заказа"
+
+actor actor1 as "Покупатель/потребитель услуг"
+
+usecase usecase3 as "Чат с поставщиком по заказу"
 
 actor actor1 as "Покупатель/потребитель услуг"
 
 actor actor2 as "Поставщик услуг"
 
-usecase usecase2 as "Создание заказа по содержимому корзины"
-
-actor actor1 as "Покупатель/потребитель услуг"
-
-usecase usecase3 as "Оплата сделанного заказа"
-
-actor actor1 as "Покупатель/потребитель услуг"
-
 usecase usecase4 as "Настройка каталога товаров и услуг"
 
-actor actor3 as "Администратора маркетплейса"
+actor actor3 as "Администратор маркетплейса"
 
 usecase usecase5 as "Просмотр каталога товаров и услуг"
 
@@ -30,9 +30,9 @@ actor actor2 as "Поставщик услуг"
 
 
 actor1 -- usecase1 
-actor2 -- usecase1 
 actor1 -- usecase2 
 actor1 -- usecase3 
+actor2 -- usecase3 
 actor3 -- usecase4 
 actor1 -- usecase5 
 actor2 -- usecase6 
